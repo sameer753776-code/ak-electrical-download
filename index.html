@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AK Electrical - Worker App</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+
+      background:
+        radial-gradient(circle at top left, #173a8a 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #7a263e 0%, transparent 35%),
+        #07111f;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+
+      padding: 32px 22px 24px;
+
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255,255,255,0.18);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border-radius: 30px;
+
+      box-shadow:
+        0 20px 70px rgba(0,0,0,0.45);
+    }
+
+    .glow1,
+    .glow2 {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      filter: blur(75px);
+      opacity: .25;
+      pointer-events: none;
+    }
+
+    .glow1 {
+      background: #2563eb;
+      top: -80px;
+      left: -80px;
+    }
+
+    .glow2 {
+      background: #ef4444;
+      bottom: -90px;
+      right: -80px;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 18px;
+
+      border-radius: 50%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+
+      box-shadow:
+        0 10px 35px rgba(37,99,235,.45);
+
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+      letter-spacing: .5px;
+    }
+
+    .subtitle {
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .worker-photo {
+      width: 145px;
+      height: 145px;
+
+      margin: 0 auto 22px;
+
+      border-radius: 50%;
+      object-fit: cover;
+
+      border: 4px solid rgba(255,255,255,.85);
+
+      box-shadow:
+        0 10px 35px rgba(0,0,0,.45);
+    }
+
+    .welcome {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      color: #d1d5db;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .download-btn {
+      width: 100%;
+      border: none;
+      outline: none;
+
+      padding: 16px 20px;
+
+      border-radius: 16px;
+
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #0ea5e9
+      );
+
+      color: white;
+
+      font-size: 17px;
+      font-weight: bold;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 10px 30px rgba(37,99,235,.35);
+
+      transition: .2s;
+    }
+
+    .download-btn:active {
+      transform: scale(.97);
+    }
+
+    .share-btn {
+      width: 100%;
+
+      margin-top: 12px;
+
+      padding: 14px 20px;
+
+      border-radius: 16px;
+
+      border: 1px solid rgba(255,255,255,.2);
+
+      background: rgba(255,255,255,.08);
+
+      color: white;
+
+      font-size: 15px;
+      font-weight: bold;
+
+      cursor: pointer;
+    }
+
+    .info {
+      margin-top: 22px;
+
+      padding: 14px;
+
+      border-radius: 15px;
+
+      background: rgba(255,255,255,.06);
+
+      color: #cbd5e1;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: 24px;
+
+      font-size: 13px;
+
+      color: #94a3b8;
+    }
+
+    .footer span {
+      color: #ef4444;
+      font-size: 15px;
+    }
+
+    .toast {
+      position: fixed;
+
+      left: 50%;
+      bottom: 25px;
+
+      transform: translateX(-50%);
+
+      background: #111827;
+
+      color: white;
+
+      padding: 12px 18px;
+
+      border-radius: 12px;
+
+      font-size: 14px;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: .3s;
+
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 380px) {
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .worker-photo {
+        width: 125px;
+        height: 125px;
+      }
+
+      .card {
+        padding: 28px 18px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <div class="glow1"></div>
+      <div class="glow2"></div>
+
+      <div class="content">
+
+        <div class="logo">
+          AK
+        </div>
+
+        <h1>AK Electrical</h1>
+
+        <p class="subtitle">
+          Worker Attendance & Duty Management App
+        </p>
+
+        <!--
+          यहाँ अपनी background-removed फोटो लगानी है।
+          फोटो का नाम worker.png रखें और GitHub में upload करें।
+        -->
+        <img
+          src="worker.png"
+          class="worker-photo"
+          alt="AK Electrical Worker"
+        >
+
+        <div class="welcome">
+          Welcome to AK Electrical 👋
+        </div>
+
+        <p class="description">
+          अब In Time और Out Time डालना हुआ आसान।
+          <br>
+          AK Electrical Worker App के साथ।
+        </p>
+
+        <!-- APK DOWNLOAD -->
+
+        <a
+          href="ak-electrical-worker.apk"
+          download="AK-Electrical-Worker.apk"
+          style="text-decoration:none;"
+        >
+          <button class="download-btn">
+            ⬇️ Download Worker App
+          </button>
+        </a>
+
+        <!-- SHARE -->
+
+        <button
+          class="share-btn"
+          onclick="shareApp()"
+        >
+          📤 Share App
+        </button>
+
+        <div class="info">
+          📱 Android Worker App
+          <br>
+          ⚡ Easy In-Time & Out-Time
+          <br>
+          📊 Attendance & Duty Management
+        </div>
+
+        <div class="footer">
+          Made by Sameer <span>❤️</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    id="toast"
+    class="toast"
+  >
+    Link copied successfully!
+  </div>
+
+
+  <script>
+
+    async function shareApp() {
+
+      const shareData = {
+        title: "AK Electrical Worker App",
+        text:
+          "Welcome to AK Electrical. Download the Worker App for easy In Time & Out Time.",
+        url: window.location.href
+      };
+
+      try {
+
+        if (navigator.share) {
+
+          await navigator.share(shareData);
+
+        } else {
+
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+          showToast();
+
+        }
+
+      } catch (error) {
+
+        console.log("Share cancelled");
+
+      }
+
+    }
+
+
+    function showToast() {
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.classList.add("show");
+
+      setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 2500);
+
+    }
+
+  </script>
+
+</body>
+  </html>

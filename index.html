@@ -1,417 +1,751 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>AK Electrical - Worker App</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-
-      background:
-        radial-gradient(circle at top left, #173a8a 0%, transparent 35%),
-        radial-gradient(circle at bottom right, #7a263e 0%, transparent 35%),
-        #07111f;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 430px;
-    }
-
-    .card {
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-
-      padding: 32px 22px 24px;
-
-      background: rgba(255, 255, 255, 0.09);
-      border: 1px solid rgba(255,255,255,0.18);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      border-radius: 30px;
-
-      box-shadow:
-        0 20px 70px rgba(0,0,0,0.45);
-    }
-
-    .glow1,
-    .glow2 {
-      position: absolute;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      filter: blur(75px);
-      opacity: .25;
-      pointer-events: none;
-    }
-
-    .glow1 {
-      background: #2563eb;
-      top: -80px;
-      left: -80px;
-    }
-
-    .glow2 {
-      background: #ef4444;
-      bottom: -90px;
-      right: -80px;
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .logo {
-      width: 82px;
-      height: 82px;
-      margin: 0 auto 18px;
-
-      border-radius: 50%;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      background: linear-gradient(135deg, #2563eb, #0ea5e9);
-
-      box-shadow:
-        0 10px 35px rgba(37,99,235,.45);
-
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    h1 {
-      font-size: 30px;
-      margin-bottom: 8px;
-      letter-spacing: .5px;
-    }
-
-    .subtitle {
-      color: #cbd5e1;
-      font-size: 15px;
-      line-height: 1.5;
-      margin-bottom: 24px;
-    }
-
-    .worker-photo {
-      width: 145px;
-      height: 145px;
-
-      margin: 0 auto 22px;
-
-      border-radius: 50%;
-      object-fit: cover;
-
-      border: 4px solid rgba(255,255,255,.85);
-
-      box-shadow:
-        0 10px 35px rgba(0,0,0,.45);
-    }
-
-    .welcome {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .description {
-      color: #d1d5db;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
-
-    .download-btn {
-      width: 100%;
-      border: none;
-      outline: none;
-
-      padding: 16px 20px;
-
-      border-radius: 16px;
-
-      background: linear-gradient(
-        135deg,
-        #2563eb,
-        #0ea5e9
-      );
-
-      color: white;
-
-      font-size: 17px;
-      font-weight: bold;
-
-      cursor: pointer;
-
-      box-shadow:
-        0 10px 30px rgba(37,99,235,.35);
-
-      transition: .2s;
-    }
-
-    .download-btn:active {
-      transform: scale(.97);
-    }
-
-    .share-btn {
-      width: 100%;
-
-      margin-top: 12px;
-
-      padding: 14px 20px;
-
-      border-radius: 16px;
-
-      border: 1px solid rgba(255,255,255,.2);
-
-      background: rgba(255,255,255,.08);
-
-      color: white;
-
-      font-size: 15px;
-      font-weight: bold;
-
-      cursor: pointer;
-    }
-
-    .info {
-      margin-top: 22px;
-
-      padding: 14px;
-
-      border-radius: 15px;
-
-      background: rgba(255,255,255,.06);
-
-      color: #cbd5e1;
-
-      font-size: 13px;
-
-      line-height: 1.6;
-    }
-
-    .footer {
-      margin-top: 24px;
-
-      font-size: 13px;
-
-      color: #94a3b8;
-    }
-
-    .footer span {
-      color: #ef4444;
-      font-size: 15px;
-    }
-
-    .toast {
-      position: fixed;
-
-      left: 50%;
-      bottom: 25px;
-
-      transform: translateX(-50%);
-
-      background: #111827;
-
-      color: white;
-
-      padding: 12px 18px;
-
-      border-radius: 12px;
-
-      font-size: 14px;
-
-      opacity: 0;
-
-      pointer-events: none;
-
-      transition: .3s;
-
-      z-index: 100;
-    }
-
-    .toast.show {
-      opacity: 1;
-    }
-
-    @media (max-width: 380px) {
-
-      h1 {
-        font-size: 26px;
-      }
-
-      .worker-photo {
-        width: 125px;
-        height: 125px;
-      }
-
-      .card {
-        padding: 28px 18px 22px;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>SG Electrical - Worker App</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f5f5;
+  color:#111;
+}
+
+/* HERO */
+
+.hero{
+  position:relative;
+  min-height:720px;
+  overflow:hidden;
+  background:#fff;
+  padding:35px 6%;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:650px;
+  height:650px;
+  border-radius:50%;
+  background:#ff7200;
+  right:-260px;
+  bottom:-300px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
+
+/* BRAND */
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  font-size:65px;
+  font-weight:900;
+  letter-spacing:-8px;
+  line-height:.8;
+}
+
+.logo .s{
+  color:#111;
+}
+
+.logo .g{
+  color:#ff7200;
+}
+
+.brand-name{
+  font-size:28px;
+  font-weight:900;
+  margin-top:10px;
+}
+
+.brand-sub{
+  color:#ff7200;
+  font-size:18px;
+  font-weight:800;
+  margin-top:4px;
+}
+
+/* DOTS */
+
+.dots{
+  position:absolute;
+  right:70px;
+  top:80px;
+  width:150px;
+  height:150px;
+  opacity:.5;
+  background-image:
+    radial-gradient(#ff7200 2px,transparent 2px);
+  background-size:22px 22px;
+}
+
+/* HERO TEXT */
+
+.hero-text{
+  margin-top:65px;
+  width:58%;
+}
+
+.hero-text h1{
+  font-size:60px;
+  line-height:1.05;
+  font-weight:900;
+}
+
+.orange{
+  color:#ff6900;
+}
+
+.hero-text p{
+  margin-top:25px;
+  font-size:22px;
+  line-height:1.55;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:25px;
+  padding:14px 24px;
+  border-radius:15px;
+  background:#ff7200;
+  color:white;
+  font-size:19px;
+  font-weight:800;
+  box-shadow:0 10px 25px rgba(255,114,0,.25);
+}
+
+.download-heading{
+  margin-top:35px;
+  font-size:27px;
+  font-weight:900;
+}
+
+.orange-line{
+  width:85px;
+  height:4px;
+  margin-top:10px;
+  background:#ff7200;
+  border-radius:10px;
+}
+
+/* WORKER IMAGE */
+
+.worker-photo{
+  position:absolute;
+  right:5%;
+  bottom:0;
+  width:430px;
+  max-height:650px;
+  object-fit:contain;
+  object-position:bottom;
+  z-index:3;
+}
+
+/* FEATURES */
+
+.features{
+  width:min(1000px,90%);
+  margin:-70px auto 25px;
+  position:relative;
+  z-index:10;
+  background:#fff;
+  border-radius:28px;
+  padding:35px 25px;
+  box-shadow:0 12px 35px rgba(0,0,0,.12);
+}
+
+.features-title{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:30px;
+}
+
+.features-title span{
+  color:#ff7200;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+}
+
+.feature{
+  text-align:center;
+  padding:15px 25px;
+  border-right:1px solid #ddd;
+}
+
+.feature:last-child{
+  border-right:0;
+}
+
+.icon{
+  width:75px;
+  height:75px;
+  margin:auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:50%;
+  background:#fff0e5;
+  color:#ff7200;
+  font-size:35px;
+}
+
+.feature h3{
+  margin-top:15px;
+  font-size:20px;
+}
+
+.feature p{
+  margin-top:8px;
+  line-height:1.5;
+  color:#333;
+}
+
+/* APP CARD */
+
+.app-card{
+  width:min(1000px,90%);
+  margin:25px auto;
+  padding:35px;
+  background:#fff;
+  border-radius:28px;
+  box-shadow:0 8px 30px rgba(0,0,0,.09);
+}
+
+.app-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:35px;
+}
+
+/* PHONE */
+
+.phone{
+  display:flex;
+  justify-content:center;
+}
+
+.phone-box{
+  width:225px;
+  height:430px;
+  border-radius:32px;
+  background:#111;
+  border:7px solid #222;
+  padding:35px 15px;
+  text-align:center;
+  color:white;
+  box-shadow:0 15px 30px rgba(0,0,0,.25);
+}
+
+.phone-logo{
+  font-size:45px;
+  font-weight:900;
+  margin-top:25px;
+}
+
+.phone-logo span{
+  color:#ff7200;
+}
+
+.phone-title{
+  color:#ff7200;
+  font-weight:800;
+  margin-top:8px;
+}
+
+.worker-symbol{
+  color:#ff7200;
+  font-size:70px;
+  margin-top:45px;
+}
+
+.phone-text{
+  margin-top:30px;
+  font-weight:bold;
+  font-size:17px;
+}
+
+.phone-text span{
+  color:#ff7200;
+}
+
+/* APP INFO */
+
+.app-info h2{
+  color:#ff7200;
+  font-size:32px;
+  margin-bottom:20px;
+}
+
+.info-row{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:20px 0;
+}
+
+.info-icon{
+  width:45px;
+  font-size:28px;
+  text-align:center;
+  color:#555;
+}
+
+.info-text small{
+  display:block;
+  color:#777;
+  margin-bottom:3px;
+}
+
+.info-text{
+  font-size:17px;
+}
+
+/* DOWNLOAD BUTTON */
+
+.download-btn{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  width:min(620px,90%);
+  margin:30px auto 10px;
+  padding:18px 25px;
+  border-radius:18px;
+  background:#ff7200;
+  color:#fff;
+  text-decoration:none;
+  font-size:28px;
+  font-weight:900;
+  box-shadow:0 10px 25px rgba(255,114,0,.3);
+  transition:.2s;
+}
+
+.download-btn:hover{
+  transform:translateY(-3px);
+  background:#f56600;
+}
+
+.secure{
+  text-align:center;
+  margin-top:12px;
+  color:#333;
+  font-size:15px;
+}
+
+/* FOOTER */
+
+.footer{
+  width:min(1000px,90%);
+  margin:20px auto 0;
+  padding:20px;
+  background:#181818;
+  color:white;
+  border-radius:25px 25px 0 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  text-align:center;
+}
+
+.footer-item{
+  font-size:16px;
+}
+
+.footer-icon{
+  color:#ff7200;
+  font-size:22px;
+  margin-right:7px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  .hero{
+    min-height:730px;
+    padding:25px 20px;
+  }
+
+  .logo{
+    font-size:48px;
+  }
+
+  .brand-name{
+    font-size:22px;
+  }
+
+  .hero-text{
+    width:100%;
+    margin-top:50px;
+  }
+
+  .hero-text h1{
+    font-size:46px;
+  }
+
+  .hero-text p{
+    font-size:18px;
+  }
+
+  .worker-photo{
+    width:340px;
+    right:-25px;
+    max-height:430px;
+  }
+
+  .feature-grid{
+    grid-template-columns:1fr;
+  }
+
+  .feature{
+    border-right:0;
+    border-bottom:1px solid #ddd;
+    padding:22px;
+  }
+
+  .feature:last-child{
+    border-bottom:0;
+  }
+
+  .app-grid{
+    grid-template-columns:1fr;
+  }
+
+  .app-card{
+    padding:25px 18px;
+  }
+
+  .footer{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+}
+
+@media(max-width:480px){
+
+  .hero{
+    min-height:720px;
+  }
+
+  .hero-text h1{
+    font-size:40px;
+  }
+
+  .hero-text p{
+    font-size:17px;
+  }
+
+  .badge{
+    font-size:15px;
+  }
+
+  .worker-photo{
+    width:290px;
+    right:-30px;
+  }
+
+  .features{
+    margin-top:-45px;
+  }
+
+  .download-btn{
+    font-size:21px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<!-- HERO -->
 
-    <div class="card">
+<section class="hero">
 
-      <div class="glow1"></div>
-      <div class="glow2"></div>
+<div class="dots"></div>
 
-      <div class="content">
+<div class="container">
 
-        <div class="logo">
-          AK
-        </div>
+<div class="brand">
 
-        <h1>AK Electrical</h1>
+<div>
 
-        <p class="subtitle">
-          Worker Attendance & Duty Management App
-        </p>
+<div class="logo">
+<span class="s">S</span><span class="g">G</span>
+</div>
 
-        <!--
-          यहाँ अपनी background-removed फोटो लगानी है।
-          फोटो का नाम worker.png रखें और GitHub में upload करें।
-        -->
-        <img
-          src="worker.png"
-          class="worker-photo"
-          alt="AK Electrical Worker"
-        >
+<div class="brand-name">
+SG ELECTRICAL
+</div>
 
-        <div class="welcome">
-          Welcome to AK Electrical 👋
-        </div>
+<div class="brand-sub">
+WORKER APP
+</div>
 
-        <p class="description">
-          अब In Time और Out Time डालना हुआ आसान।
-          <br>
-          AK Electrical Worker App के साथ।
-        </p>
+</div>
 
-        <!-- APK DOWNLOAD -->
-
-        <a
-          href="ak-electrical-worker.apk"
-          download="AK-Electrical-Worker.apk"
-          style="text-decoration:none;"
-        >
-          <button class="download-btn">
-            ⬇️ Download Worker App
-          </button>
-        </a>
-
-        <!-- SHARE -->
-
-        <button
-          class="share-btn"
-          onclick="shareApp()"
-        >
-          📤 Share App
-        </button>
-
-        <div class="info">
-          📱 Android Worker App
-          <br>
-          ⚡ Easy In-Time & Out-Time
-          <br>
-          📊 Attendance & Duty Management
-        </div>
-
-        <div class="footer">
-          Made by Sameer <span>❤️</span>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div
-    id="toast"
-    class="toast"
-  >
-    Link copied successfully!
-  </div>
+</div>
 
 
-  <script>
+<div class="hero-text">
 
-    async function shareApp() {
+<h1>
+Welcome to<br>
+<span class="orange">SG Electrical</span>
+</h1>
 
-      const shareData = {
-        title: "AK Electrical Worker App",
-        text:
-          "Welcome to AK Electrical. Download the Worker App for easy In Time & Out Time.",
-        url: window.location.href
-      };
+<p>
+अब IN Time, OUT Time डालना हुआ आसान,<br>
+SG Electrical ऐप के साथ।
+</p>
 
-      try {
+<div class="badge">
+⚡ Smart Work. Easy Time Tracking.
+</div>
 
-        if (navigator.share) {
+<div class="download-heading">
+अभी डाउनलोड करें
+</div>
 
-          await navigator.share(shareData);
+<div class="orange-line"></div>
 
-        } else {
-
-          await navigator.clipboard.writeText(
-            window.location.href
-          );
-
-          showToast();
-
-        }
-
-      } catch (error) {
-
-        console.log("Share cancelled");
-
-      }
-
-    }
+</div>
 
 
-    function showToast() {
+<!-- GitHub में worker.png नाम से फोटो रखें -->
 
-      const toast =
-        document.getElementById("toast");
+<img
+src="worker.png"
+class="worker-photo"
+alt="SG Electrical Worker"
+>
 
-      toast.classList.add("show");
+</div>
 
-      setTimeout(() => {
+</section>
 
-        toast.classList.remove("show");
 
-      }, 2500);
+<!-- FEATURES -->
 
-    }
+<section class="features">
 
-  </script>
+<h2 class="features-title">
+<span>SG Electrical</span> Worker App
+</h2>
+
+<div class="feature-grid">
+
+<div class="feature">
+
+<div class="icon">◷</div>
+
+<h3>
+Easy Time Entry
+</h3>
+
+<p>
+IN Time और OUT Time<br>
+बस एक क्लिक में।
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">☷</div>
+
+<h3>
+Daily Records
+</h3>
+
+<p>
+अपने सभी टाइम रिकॉर्ड<br>
+रखें सुरक्षित।
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">⇩</div>
+
+<h3>
+Simple & Fast
+</h3>
+
+<p>
+हल्का, तेज और आसान<br>
+इंटरफेस।
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- APP INFORMATION -->
+
+<section class="app-card">
+
+<div class="app-grid">
+
+
+<div class="phone">
+
+<div class="phone-box">
+
+<div class="phone-logo">
+S<span>G</span>
+</div>
+
+<div class="phone-title">
+SG ELECTRICAL<br>
+WORKER APP
+</div>
+
+<div class="worker-symbol">
+♙
+</div>
+
+<div class="phone-text">
+Track Your Work<br>
+<span>Grow Every Day</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="app-info">
+
+<h2>
+SG Electrical App
+</h2>
+
+<div class="info-row">
+
+<div class="info-icon">
+♟
+</div>
+
+<div class="info-text">
+<small>Version</small>
+1.0.0
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+⇩
+</div>
+
+<div class="info-text">
+<small>Size</small>
+8.5 MB
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+✓
+</div>
+
+<div class="info-text">
+<small>Safe & Secure</small>
+100% Secure
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+▯
+</div>
+
+<div class="info-text">
+<small>Requires</small>
+Android 6.0+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- APK DOWNLOAD -->
+
+<a
+class="download-btn"
+href="SG-Electrical.apk"
+download="SG-Electrical.apk"
+>
+⇩ DOWNLOAD APP
+</a>
+
+<p class="secure">
+🔒 यह एक सुरक्षित और आधिकारिक डाउनलोड लिंक है।
+</p>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-item">
+<span class="footer-icon">♢</span>
+100% Safe
+</div>
+
+<div class="footer-item">
+<span class="footer-icon">♧</span>
+24x7 Support
+</div>
+
+<div class="footer-item">
+<span class="footer-icon">⚡</span>
+Made for Workers
+</div>
+
+</footer>
 
 </body>
   </html>
